@@ -61,10 +61,6 @@ ll dayTwoHelper(vector<string>& v){
     for (int i = 0; i < n; ++i){
         for (int j = 0; j < m; ++j){
             v[i][j] = mp[v[i][j]];
-            bool debug = false;
-            if (i == 9 && j == 1){
-                debug = true;
-            }
             vector<ll> vertical = testVerticalPt2(v);
             if (vertical.size() != 0 ){
                 for (ll val : vertical){
@@ -74,7 +70,6 @@ ll dayTwoHelper(vector<string>& v){
                 }
             }
             vector<ll> horizontal = testHorizontalPt2(v);
-            //found horizontal and orig was vertical OR found dif horizontal
             if (horizontal.size() != 0){
                 for (int val : horizontal){
                     if (val * 100 != original){
