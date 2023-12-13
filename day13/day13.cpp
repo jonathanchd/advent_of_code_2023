@@ -7,7 +7,7 @@ ll testVertical(const vector<string>& v);
 ll testHorizontal(const vector<string>& v);
 void printVector(const vector<string>& v);
 
-//return -1 if no vertical line
+//return empty vector if no line
 vector<ll> testVerticalPt2(const vector<string>& v){
     const int n = v.size();
     const int m = v[0].size();
@@ -35,7 +35,7 @@ vector<ll> testVerticalPt2(const vector<string>& v){
     return lines;
 }
 
-//return -1 if no horizontal line
+//return empty vector if no line
 vector<ll> testHorizontalPt2(const vector<string>& v){
     vector<string> rotated(v[0].size(), string(v.size(), 'a'));
     int rows = v.size();
@@ -47,8 +47,6 @@ vector<ll> testHorizontalPt2(const vector<string>& v){
     }
     return testVerticalPt2(rotated);
 }
-
-
 
 ll dayTwoHelper(vector<string>& v){
     map<char, char> mp = {{'.', '#'}, {'#', '.'}};
