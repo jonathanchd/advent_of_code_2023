@@ -12,7 +12,7 @@ vector<ll> testVerticalPt2(const vector<string>& v){
     const int n = v.size();
     const int m = v[0].size();
     //i == number of columns to the left
-    vector<ll> stuff;
+    vector<ll> lines;
     for (int i = 1; i < m; ++i){
         bool works = true;
         //line is between i - 1 and i
@@ -29,10 +29,10 @@ vector<ll> testVerticalPt2(const vector<string>& v){
             }
         }
         if (works){
-            stuff.push_back(i);
+            lines.push_back(i);
         }
     }
-    return stuff;
+    return lines;
 }
 
 //return -1 if no horizontal line
@@ -86,18 +86,14 @@ ll dayTwoHelper(vector<string>& v){
 ll partTwo(){
     ifstream fin("day13input.txt");
     // ifstream fin("day13sample.txt");
-    // ifstream fin("test.txt");
     string s;
     ll ans = 0;
-    int cse = 0;
     while (getline(fin, s)){
         vector<string> v;
         while (s != ""){
             v.push_back(s);
             getline(fin, s);
         }
-        // cout << "Case: " << cse << endl;
-        ++cse;
         ans += dayTwoHelper(v);
         
     }
@@ -153,13 +149,8 @@ void printVector(const vector<string>& v){
 ll dayOneHelper(const vector<string>& v){
     ll vertical = testVertical(v);
     if (vertical != -1){
-        // printVector(v);
-        // cout << "vert " << vertical << endl << endl;
         return vertical;
     }
-    // printVector(v);
-    // int horizontal = testHorizontal(v);
-    // cout << "hori " << horizontal << endl << endl;
     return testHorizontal(v) * 100;
 }
 
@@ -168,16 +159,13 @@ ll partOne(){
     // ifstream fin("day13sample.txt");
     string s;
     ll ans = 0;
-    int cse = 0;
     while (getline(fin, s)){
         vector<string> v;
         while (s != ""){
             v.push_back(s);
             getline(fin, s);
         }
-        // cout << "Case: " << cse << endl;
         ans += dayOneHelper(v);
-        ++cse;
     }
     return ans;
 }
