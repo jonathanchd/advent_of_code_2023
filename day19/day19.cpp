@@ -93,23 +93,46 @@ ll searchTwo(const vector<pair<ll, ll>>& v, const string& workflow, unordered_ma
     ll tot = 0;
     for (pair<Cmp, string> process : processes){
         Cmp c = process.first;
-        vector<pair<ll, ll>> copy = curr;
         //last process
         if (c.getThreshold() == INT_MIN){
             tot += searchTwo(curr, process.second, mp);
             break;
         }
         int index = c.getIndex();
-        //entire interval satisfies the property
+        vector<int> temp = {0, 0, 0, 0};
+        vector<int> temp2 = temp;
+        temp[index] = curr[index].first;
+        temp[index] = curr[index].second;
         //entire interval doesn't satisfy
+        if (!c(temp) && !c(temp2)){
+            continue;
+        }
+        //entire interval satisfies the property
+        if (c(temp) && c(temp2)){
+            tot += searchTwo(curr, process.second, mp);
+            break;
+        }
         //some overlap (separate into two)
+        //send threshold + 1 to the recursion
+        if (c.getGT()){
+            vector<pair<ll, ll>> copy = curr;
+            copy[index].first = c.getThreshold() + 1;
+            curr[index].second = c.getThreshold();
+            tot += searchTwo(copy, process.second, mp);
+        }
+        else{
+            vector<pair<ll, ll>> copy = curr;
+            copy[index].second = c.getThreshold() - 1;
+            curr[index].first = c.getThreshold();
+            tot += searchTwo(copy, process.second, mp);
+        }
     }
     return tot;
 }
 
 ll partTwo(){
-    ifstream fin("day19sample.txt");
-    // ifstream fin("day19input.txt");
+    // ifstream fin("day19sample.txt");
+    ifstream fin("day19input.txt");
     unordered_map<string, vector<pair<Cmp, string>>> mp;
     string line;
     getline(fin, line);
