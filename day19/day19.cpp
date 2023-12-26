@@ -102,7 +102,7 @@ ll searchTwo(const vector<pair<ll, ll>>& v, const string& workflow, unordered_ma
         vector<int> temp = {0, 0, 0, 0};
         vector<int> temp2 = temp;
         temp[index] = curr[index].first;
-        temp[index] = curr[index].second;
+        temp2[index] = curr[index].second;
         //entire interval doesn't satisfy
         if (!c(temp) && !c(temp2)){
             continue;
